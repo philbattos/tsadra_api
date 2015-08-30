@@ -3,10 +3,18 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  def fetch_query
-    portal    = Portal.new
-    response  = portal.fetch(request.query_string)
+  def home
+  end
 
-    render json: response
+  def fetch_query
+    query = request.query_string
+
+    if query.present?
+      portal    = Portal.new
+      response  = portal.fetch(query)
+      render json: response
+    else
+      render json: 'welcome'
+    end
   end
 end

@@ -1,11 +1,11 @@
 class Portal
   # responsible for connecting research.tsadra.org with librarywiki.tsadra.org
+  # test_query  = 'https://research.tsadra.org/index.php?title=Special%3AAsk&q=%5B%5BBuddhism%2C+Sexuality%2C+and+Gender%5D%5D&po=author%0D%0Afulltitle%0D%0Apublisher%0D%0A&eq=yes&p%5Bformat%5D=csv&p%5Bsep%5D=%2C'
 
   def fetch(query)
-    # test_query  = 'https://research.tsadra.org/index.php?title=Special%3AAsk&q=%5B%5BBuddhism%2C+Sexuality%2C+and+Gender%5D%5D&po=author%0D%0Afulltitle%0D%0Apublisher%0D%0A&eq=yes&p%5Bformat%5D=csv&p%5Bsep%5D=%2C'
     uri         = build_uri(query)
     digest_auth = Net::HTTP::DigestAuth.new
-    response    = authenticate_request(uri, digest_auth)
+    response    = authenticated_request(uri, digest_auth)
     response.body
   end
 
@@ -22,7 +22,7 @@ class Portal
       uri
     end
 
-    def authenticate_request(uri, digest_auth)
+    def authenticated_request(uri, digest_auth)
       Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
         request1        = Net::HTTP::Get.new uri            # initial request
         response1       = http.request request1             # initial response from remote server
