@@ -3,7 +3,7 @@ namespace :heroku do
   task :scale_dyno_up => :environment do
     puts "***** Scaling dyno up *****"
     Bundler.with_clean_env do
-      sh "ps:scale web=1"
+      `ps:scale web=1`
     end
   end
 
@@ -11,7 +11,7 @@ namespace :heroku do
   task :scale_dyno_down => :environment do
     puts "***** Scaling dyno down *****"
     Bundler.with_clean_env do
-      sh "ps:scale web=0"
+      `ps:scale web=0`
     end
   end
 end
