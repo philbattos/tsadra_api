@@ -24,6 +24,7 @@ gem 'sdoc',         '~> 0.4.0', group: :doc # bundle exec rake doc:rails generat
 gem 'pg'                                    # Heroku uses postgres
 gem 'net-http-digest_auth'                  # for digest authentication (re: firewall on research.tsadra.org)
 # gem 'active_model_serializers'
+gem 'platform-api'                          # provides access to Heroku's Platform API (for scaling dynos in rake task)
 
 group :production do
   gem 'newrelic_rpm'                        # for monitoring site performance

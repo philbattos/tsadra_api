@@ -1,17 +1,15 @@
-# namespace :heroku do
+namespace :heroku do
   desc "Scale Heroku dyno up to activate app"
   task scale_dyno_up: :environment do
     puts "***** Scaling dyno up *****"
-    Bundler.with_clean_env do
-      `heroku ps:scale web=1`
-    end
+    heroku = PlatformAPI.connect_oauth(ENV['PLATFORM_API_TOKEN'])
+    heroku.formation.update('tsadra', 'web', {'quantity': 0})
   end
 
   desc "Scale Heroku dyno down to force app to sleep"
   task scale_dyno_down: :environment do
     puts "***** Scaling dyno down *****"
-    Bundler.with_clean_env do
-      `heroku ps:scale web=0`
-    end
+    heroku = PlatformAPI.connect_oauth(ENV['PLATFORM_API_TOKEN'])
+    heroku.formation.update('tsadra', 'web', {'quantity': 0})
   end
-# end
+end
