@@ -3,7 +3,7 @@ namespace :heroku do
   task scale_dyno_up: :environment do
     puts "***** Scaling dyno up *****"
     heroku = PlatformAPI.connect_oauth(ENV['PLATFORM_API_TOKEN'])
-    heroku.formation.update('tsadra', 'web', {'quantity': 0})
+    heroku.formation.update('tsadra', 'web', {'quantity': 1})
   end
 
   desc "Scale Heroku dyno down to force app to sleep"
