@@ -13,9 +13,25 @@ class ApplicationController < ActionController::Base
     if query.present?
       portal    = Portal.new
       response  = portal.fetch(query)
-      render json: response
+      render json: response.body
     else
-      render json: 'welcome'
+      render json: 'tsadra query wrapper'
+    end
+  end
+
+  def tunnel # bypass DRL firewall
+    query = request.query_string
+
+    if query.present?
+      portal = Portal.new
+      response = portal.bypass_firewall(query)
+
+      send_data response.body,
+        disposition: 'inline',
+        type: response.content_type,
+        status: response.code
+    else
+      render json: 'tsadra tunnel'
     end
   end
 end
