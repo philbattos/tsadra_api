@@ -25,6 +25,8 @@ gem 'pg'                                    # Heroku uses postgres
 gem 'net-http-digest_auth'                  # for digest authentication (re: firewall on research.tsadra.org)
 # gem 'active_model_serializers'
 gem 'platform-api'                          # provides access to Heroku's Platform API (for scaling dynos in rake task)
+gem 'mediawiki_api'                         # for accessing MediaWiki API
+
 
 group :production do
   gem 'newrelic_rpm'                        # for monitoring site performance

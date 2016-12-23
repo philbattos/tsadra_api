@@ -9,6 +9,18 @@ class Portal
     response        = authenticate_request(uri)
   end
 
+  # responsible for sending queries to research.tsadra.org using the Special:Ask wiki extension
+  # example query: https://tsadra.herokuapp.com/ask-query?action=query&titles=Asian_Traditions_of_Meditation&prop=revisions&list=&meta=siteinfo&format=json
+  def ask_query(query)
+    root_url       = 'https://research.tsadra.org/api.php?'
+    research_query = root_url + query
+    client         = MediawikiApi::Client.new(research_query)
+
+    client.log_in(ENV['RESEARCH_WIKI_USERNAME'], ENV['RESEARCH_WIKI_PASSWORD'])
+    response = client.query
+    response.data
+  end
+
   # bypasses the DRL firewall to provide access to research.tsadra.org
   # example request: https://tsadra.herokuapp.com/tunnel?https://research.tsadra.org/images/1/1b/The_Evolution_of_the_Buddha_Image-front.jpeg
   def bypass_firewall(query)
